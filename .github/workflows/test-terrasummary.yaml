@@ -13,15 +13,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
       - name: Generate Terraform plan
         run: |
           # terraform plan -no-color > tfplan.txt
           # for testing let's use the following dummy file
           cat tf-plan-out-sample.txt > tfplan.txt
+      
+      - name: Run terrasummary
+        uses: ./.github/workflows/terrasummary.yaml
+        with:
+          plan_file: tfplan.txt
+        secrets:
+          mistral_api_key: ${{ secrets.MISTRAL_API_KEY }}
 
-  summarize-plan:
-    uses: ./.github/workflows/terrasummary.yaml
-    with:
-      plan_file: tfplan.txt
-    secrets:
-      mistral_api_key: ${{ secrets.MISTRAL_API_KEY }}
+
