@@ -1,0 +1,39 @@
+name: "Terrasummary"
+description: "Summarizes terraform plan output using LLM"
+author: "Ryza Ry"
+branding:
+  color: yellow
+  icon: book-open
+inputs:
+  mistral_api_key:
+    description: "Mistral API key"
+    required: true
+  plan_file:
+    description: "Terraform plan output file path"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set GitHub Path
+      run: echo "$GITHUB_ACTION_PATH" >> $GITHUB_PATH
+      shell: bash
+      env:
+        GITHUB_ACTION_PATH: ${{ github.action_path }}
+      
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.x"
+
+    - name: Install Python dependencies
+      uses: py-actions/py-dependency-install@v4
+      with:
+        path: "${{ github.action_path }}/requirements.txt"
+
+    - name: Run terrasummary
+      run: |
+        python -m terrasummary.main "${{ inputs.plan_file }}"
+      shell: bash
+      env:
+        MISTRAL_API_KEY: ${{ inputs.mistral_api_key }}
