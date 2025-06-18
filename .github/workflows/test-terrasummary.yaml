@@ -20,7 +20,7 @@ jobs:
           cat tf-plan-out-sample.txt > tfplan.txt
 
   summarize-plan:
-    uses: .github/workflows/terrasummary.yaml@main
+    uses: ./.github/workflows/terrasummary.yaml
     with:
       plan_file: tfplan.txt
     secrets:
