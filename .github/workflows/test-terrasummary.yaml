@@ -17,7 +17,7 @@ jobs:
         run: |
         # terraform plan -no-color > tfplan.txt
         # for testing let's use the following dummy file
-        tf-plan-out-sample.txt > tfplan.txt
+        cat tf-plan-out-sample.txt > tfplan.txt
 
   summarize-plan:
     uses: your-org/terrasummary-repo/.github/workflows/terrasummary.yaml@main
