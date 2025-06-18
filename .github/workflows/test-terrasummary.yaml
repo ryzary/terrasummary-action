@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  generate-and-summarize:
+  generate-tf-plan:
     runs-on: ubuntu-latest
 
     steps:
@@ -26,12 +26,11 @@ jobs:
           # terraform plan -no-color > tfplan.txt
           # for testing let's use the following dummy file
           cat tf-plan-out-sample.txt > tfplan.txt
-      
-      - name: Run terrasummary
-        uses: ./.github/workflows/terrasummary.yaml
-        with:
-          plan_file: tfplan.txt
-        secrets:
-          mistral_api_key: ${{ secrets.MISTRAL_API_KEY }}
 
-
+  summarize:
+    needs: generate-tf-plan
+    uses: ./.github/workflows/terrasummary.yaml
+    with:
+      plan_file: tfplan.txt
+    secrets:
+      mistral_api_key: ${{ secrets.MISTRAL_API_KEY }}
