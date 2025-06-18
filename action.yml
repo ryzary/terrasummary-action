@@ -1,0 +1,29 @@
+name: "Terraform Plan Summarizer"
+description: "Summarizes terraform plan output using LLM"
+author: "Ryza Ry"
+inputs:
+  mistral_api_key:
+    description: "Mistral API key"
+    required: true
+  plan_file:
+    description: "Terraform plan output file path"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.x"
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run terrasummary
+      run: |
+        python -m terrasummary.main ${{ inputs.plan_file }}
+      env:
+        MISTRAL_API_KEY: ${{ inputs.mistral_api_key }}

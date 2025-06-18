@@ -1,0 +1,28 @@
+name: Terraform CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  generate-and-summarize:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate Terraform plan
+        run: |
+        # terraform plan -no-color > tfplan.txt
+        # for testing let's use the following dummy file
+        tf-plan-out-sample.txt > tfplan.txt
+
+
+  summarize-plan:
+    uses: your-org/terrasummary-repo/.github/workflows/terrasummary.yaml@main
+    with:
+      plan_file: tfplan.txt
+    secrets:
+      mistral_api_key: ${{ secrets.MISTRAL_API_KEY }}
