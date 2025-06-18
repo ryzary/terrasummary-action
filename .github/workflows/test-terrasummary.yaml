@@ -7,23 +7,9 @@ on:
     branches: [main]
 
 jobs:
-  generate-tf-plan:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Generate Terraform plan
-        run: |
-          # terraform plan -no-color > tfplan.txt
-          # for testing let's use the following dummy file
-          cat tf-plan-out-sample.txt > tfplan.txt
-
   summarize:
-    needs: generate-tf-plan
     uses: ./.github/workflows/terrasummary.yaml
     with:
-      plan_file: tfplan.txt
-    secrets:
+      plan_file: tf-plan-out-sample.txt
       mistral_api_key: ${{ secrets.MISTRAL_API_KEY }}
 
