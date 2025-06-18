@@ -9,8 +9,6 @@ on:
 jobs:
   generate-and-summarize:
     runs-on: ubuntu-latest
-    secrets:
-      mistral_api_key: ${{ secrets.MISTRAL_API_KEY }}
 
     steps:
       - uses: actions/checkout@v4
@@ -33,5 +31,7 @@ jobs:
         uses: ./.github/workflows/terrasummary.yaml
         with:
           plan_file: tfplan.txt
+        secrets:
+          mistral_api_key: ${{ secrets.MISTRAL_API_KEY }}
 
 
