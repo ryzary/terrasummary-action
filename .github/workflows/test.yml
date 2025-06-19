@@ -1,0 +1,19 @@
+name: Test Terrasummary Action
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      [main]
+
+jobs:
+  test-terrasummary:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Terrasummary (local branch)
+        uses: action.yml  # <-- use relative path to test before release
+        with:
+          mistral_api_key: ${{ secrets.MISTRAL_API_KEY }}
+          plan_file: tfplan.txt
