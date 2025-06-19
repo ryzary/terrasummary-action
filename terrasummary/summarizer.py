@@ -13,20 +13,34 @@ def summarize_terraform_plan(plan_text: str, api_key: str, model: str = "magistr
         Summarized text.
     """
     prompt = f"""
-        You are an expert DevOps engineer helping review Terraform plans.
-
-        Your task is to summarize the Terraform plan output below into a **clear, readable summary** suitable for code reviews or pull requests.
+        Summarize the following Terraform plan output into a clear, **concise table**.
 
         📌 **Format**:
-        - Use **headings** for *Resources to be Added*, *Changed*, and *Destroyed*.
-        - Group by **resource type** (e.g., `aws_s3_bucket`, `azurerm_virtual_machine`, etc.).
-        - Use ✅ **green** for additions, ⚠️ **yellow** for changes, and ❌ **red** for deletions.
-        - Provide a **concise explanation** for each change (what it is, why it might matter).
+        Use a Markdown table with the following columns:
 
-        🎨 **If possible, use ANSI color codes** to make ✅ additions green, ⚠️ changes yellow, ❌ deletions red for terminal output. Otherwise, use **Markdown** format for GitHub.
+        | Action   | Resource Type         | Resource Name              | Details                         |
+        |----------|-----------------------|----------------------------|---------------------------------|
 
-        Below is the Terraform plan output:
+        - **Action**: `Add`, `Change`, or `Destroy`
+        - **Resource Type**: The type of the Terraform resource (e.g., `aws_s3_bucket`)
+        - **Resource Name**: The resource name (e.g., `log_bucket`)
+        - **Details**: Brief description of what's changing or being created/destroyed.
+
+        Please output only the **Markdown table**.
+
+        Here is the Terraform plan output:
         {plan_text}
+        
+        ---
+
+        ### ✅ **Example Output:**
+        | Action  | Resource Type      | Resource Name            | Details                                      |
+        |---------|--------------------|--------------------------|----------------------------------------------|
+        | Add     | aws_s3_bucket      | log_bucket               | Creates a new S3 bucket for logs             |
+        | Change  | aws_instance       | web_server               | Instance type `t2.micro` → `t3.micro`       |
+        | Destroy | aws_lambda_function| old_processor            | Function no longer needed, will be removed  |
+
+        ---
         """
     client = Mistral(api_key=api_key)
 
