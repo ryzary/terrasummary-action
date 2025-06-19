@@ -32,8 +32,9 @@ def summarize_terraform_plan(plan_text: str, api_key: str, model: str = "magistr
         {plan_text}
         
         ---
-
+        Always include the sentence "📖 Here is the summary of your terraform plan:" in the beginning of the response.
         ### ✅ **Example Output:**
+        📖 Here is the summary of your terraform plan:
         | Action  | Resource Type      | Resource Name            | Details                                      |
         |---------|--------------------|--------------------------|----------------------------------------------|
         | Add     | aws_s3_bucket      | log_bucket               | Creates a new S3 bucket for logs             |
