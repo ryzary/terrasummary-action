@@ -1,6 +1,9 @@
-name: "Terraform Plan Summarizer"
+name: "Terrasummary"
 description: "Summarizes terraform plan output using LLM"
 author: "Ryza Ry"
+branding:
+  color: yellow
+  icon: book-open
 inputs:
   mistral_api_key:
     description: "Mistral API key"
