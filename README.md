@@ -16,7 +16,7 @@ Terrasummary is an `Actions` that can be used to sumarize output of `terraform p
     Make sure that you pipe the output of `terraform plan` to a file and use it as an input for Terrasummary.
 ```
       - name: Terraform Plan
-        run: terraform plan -no-color > tfplan.log
+        run: terraform plan 2>&1 | tee tfplan.log
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
