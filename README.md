@@ -3,15 +3,19 @@
 [![GitHub release](https://img.shields.io/github/release/ryzary/terrasummary-action.svg)](https://github.com/ryzary/terrasummary-action/releases)
 [![GitHub marketplace](https://img.shields.io/badge/marketplace-terrasummary-blue?logo=github)](https://github.com/marketplace/actions/terrasummary)
 
-Terrasummary is a GitHub Action that intelligently summarizes Terraform plan output using AI. It transforms verbose `terraform plan` output into clear, concise summaries that are easy to understand and review.
+Terrasummary is a GitHub Action that intelligently summarizes Terraform plan output using an LLM. It transforms verbose `terraform plan` output into clear, concise summaries that are easy to understand and review.
+
+<div align="center">
+  <img src="assets/demo.gif" width="600" height="300">
+</div>
+
 
 ## ✨ Features
 
-- 🤖 **AI-Powered Summarization**: Uses Mistral AI's `devstral-small-2505` model for intelligent analysis
+- 🤖 **LLM-Powered Summarization**: Uses Mistral AI's `devstral-small-2505` model for analysis
 - 📊 **Clear Output**: Converts complex Terraform plans into readable summaries
-- 🔒 **Secure**: API keys are handled securely through GitHub Secrets
 - ⚡ **Fast**: Lightweight action that integrates seamlessly into your CI/CD pipeline
-- 🎯 **Focused**: Highlights key changes, additions, and deletions in your infrastructure
+- 🔒 **Secure**: API keys are handled securely through GitHub Secrets
 
 ## 🚀 Quick Start
 
