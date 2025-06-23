@@ -32,6 +32,8 @@ runs:
         path: "${{ github.action_path }}/requirements.txt"
 
     - name: Run terrasummary
+      with:
+        path: "${{ github.action_path }}"
       run: |
         python -m terrasummary.main "${{ inputs.plan_file }}"
       shell: bash
