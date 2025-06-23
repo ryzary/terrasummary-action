@@ -15,12 +15,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Set GitHub Path
-      run: echo "$GITHUB_ACTION_PATH" >> $GITHUB_PATH
-      shell: bash
-      env:
-        GITHUB_ACTION_PATH: ${{ github.action_path }}
-      
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
@@ -33,6 +27,7 @@ runs:
 
     - name: Run terrasummary
       run: |
+        cd "${{ github.action_path }}"
         python -m terrasummary.main "${{ inputs.plan_file }}"
       shell: bash
       env:
