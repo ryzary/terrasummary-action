@@ -57,7 +57,7 @@ jobs:
         run: terraform init
 
       - name: Terraform Plan
-        run: terraform plan -no-color 2>&1 | tee tfplan.log
+        run: terraform plan 2>&1 | tee tfplan.log
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -77,35 +77,8 @@ jobs:
 | `mistral_api_key` | Your Mistral AI API key | ✅ Yes | - |
 | `plan_file` | Path to the Terraform plan output file | ✅ Yes | - |
 
-## 📤 Outputs
 
-The action generates a comprehensive summary that includes:
 
-- **Overview**: High-level summary of planned changes
-- **Resources**: Detailed breakdown of resources being created, modified, or destroyed
-- **Impact Analysis**: Assessment of the changes' significance
-- **Recommendations**: Suggestions for review or potential issues to consider
-
-## 💡 Usage Tips
-
-### Best Practices
-
-1. **Capture Complete Output**: Use `2>&1 | tee` to capture both stdout and stderr
-2. **Use No-Color Flag**: Add `-no-color` to terraform plan for cleaner output
-3. **File Naming**: Use descriptive names for plan files (e.g., `tfplan-prod.log`)
-
-### Example with Multiple Environments
-
-```yaml
-- name: Terraform Plan (Production)
-  run: terraform plan -var-file="prod.tfvars" -no-color 2>&1 | tee tfplan-prod.log
-
-- name: Summarize Production Plan
-  uses: ryzary/terrasummary-action@v1.0.0
-  with:
-    mistral_api_key: ${{ secrets.MISTRAL_API_KEY }}
-    plan_file: tfplan-prod.log
-```
 
 ## 🔧 Troubleshooting
 
@@ -135,13 +108,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 We use [SemVer](http://semver.org/) for versioning. For available versions, see the [tags on this repository](https://github.com/ryzary/terrasummary-action/tags).
 
-## 📞 Support
-
-If you encounter any issues or have questions:
-
-1. Check the [troubleshooting section](#-troubleshooting) above
-2. Search existing [issues](https://github.com/ryzary/terrasummary-action/issues)
-3. Create a new issue with detailed information about your problem
 
 ---
 
